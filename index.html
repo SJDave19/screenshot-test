@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenshot Example</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <!-- Content to be captured -->
+  <div id="screenshot-content" style="width: 300px; height: 300px; padding: 20px; background-color: lightblue;">
+    <h2>Hello, this is a test screenshot!</h2>
+    <p>Take a screenshot of this content.</p>
+  </div>
+
+  <!-- Button to capture screenshot -->
+  <button id="screenshot-btn">Take Screenshot</button>
+
+  <script>
+    // Function to capture the screenshot
+    document.getElementById('screenshot-btn').addEventListener('click', function() {
+      html2canvas(document.querySelector("#screenshot-content")).then(canvas => {
+        // Create an image from the canvas
+        const imgData = canvas.toDataURL("image/png");
+
+        // Create a temporary link to download the image
+        const downloadLink = document.createElement('a');
+        downloadLink.href = imgData;
+        downloadLink.download = 'screenshot.png';
+
+        // Trigger the download
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      });
+    });
+  </script>
+
+</body>
+</html>
